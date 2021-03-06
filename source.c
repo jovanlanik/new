@@ -1,5 +1,5 @@
 //
-// New Char
+// New
 // Copyright (c) 2018 Jovan Lanik, Josef Miegl
 //
 
