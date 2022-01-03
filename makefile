@@ -1,7 +1,5 @@
-#
 # New
 # Copyright (c) 2020 Jovan Lanik
-#
 
 # Makefile
 
@@ -12,7 +10,7 @@ CFLAGS += -std=c11
 SRC = source.c
 OBJ = $(SRC:%.c=%.o)
 
-TRASH = $(OBJ)
+TRASH = $(OBJ) $(NAME)
 
 .PHONY: all clean
 

@@ -1,73 +1,80 @@
-//
 // New
 // Copyright (c) 2018 Jovan Lanik, Josef Miegl
-//
 
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-char map[][5] = {"/\\", "|:", "[", "|]", "[-", "|=", "[.", "|-|", "|", ".|", "|<", "|.", "|\\/|",
-		"|\\|", "[]", "|>", "[|.", "|>.", "./", "-|-", "||", "\\/", "\\\\/", "><", "^/", "/."};
+char map[][5] = {
+	"/\\",
+	"|:",
+	"[",
+	"|]",
+	"[-",
+	"|=",
+	"[.",
+	"|-|",
+	"|",
+	".|",
+	"|<",
+	"|.",
+	"|\\/|",
+	"|\\|",
+	"[]",
+	"|>",
+	"[|.",
+	"|>.",
+	"./",
+	"-|-",
+	"||",
+	"\\/",
+	"\\\\/",
+	"><",
+	"^/",
+	"/."
+};
 
-int main(void)
-{
+#define LEN(c) strlen(map[toupper(c)-'A'])
+#define MAP(c, i) map[toupper(c)-'A'][i]
+
+int main(int argc, char *argv[]) {
 	char input[3];
-	for(int j = 0; j < 2; ++j)
-	{
-		input[j] = '\0';
-	}
-	while(input[2] != EOF)
-	{
+	for(int i = 0; i < 2; ++i) input[i] = '\0';
+	while(input[2] != EOF) {
 		input[2] = getchar();
-		if(input[2] == '\033') while(input[2-1] != 'm')
-		{
-			putchar(input[2]);
-			for(int j = 1; j < 3; ++j) {
-				input[j-1] = input[j];
+		if(input[2] == '\033') {
+			while(input[1] != 'm') {
+				putchar(input[2]);
+				for(int i = 1; i < 3; ++i) input[i-1] = input[i];
+				input[2] = getchar();
 			}
-			input[2] = getchar();
 		}
-
-		if(isalpha(input[2]))
-		{
-			for(int i = 0; i < strlen(map[toupper(input[2])-65]); ++i)
-			{
-				if(input[1] == '\b')
-				{
-					if(input[0] == '_')
-					{
-						putchar(map[toupper(input[2])-65][i]);
-						if(i == strlen(map[toupper(input[2])-65])-1) break;
+		if(isalpha(input[2])) {
+			for(int i = 0; i < LEN(input[2]); ++i) {
+				if(input[1] == '\b') {
+					if(input[0] == '_') {
+						putchar(MAP(input[2], i));
+						if(i == LEN(input[2])-1) break;
 						putchar('_');
 						putchar('\b');
 					}
-					else
-					{
-						putchar(map[toupper(input[2])-65][i]);
+					else {
+						putchar(MAP(input[2], i));
 						putchar('\b');
-						putchar(map[toupper(input[2])-65][i]);
+						putchar(MAP(input[2], i));
 					}
 				}
-				else putchar(map[toupper(input[2])-65][i]);
+				else putchar(MAP(input[2], i));
 			}
 		}
-		else if(input[2] == '\b')
-		{
+		else if(input[2] == '\b') {
 			if(isalpha(input[1]))
-			{
-				for(int i = 0; i < strlen(map[toupper(input[1])-65]); ++i)
-				{
-					putchar('\b');
-				}
-			}
+				for(int i = 0; i < LEN(input[1]); ++i) putchar('\b');
 			else putchar('\b');
 		}
 		else putchar(input[2]);
-
-		for(int j = 1; j < 3; ++j) {
-			input[j-1] = input[j];
-		}
+		for(int i = 1; i < 3; ++i) input[i-1] = input[i];
 	}
 	return 0;
 }
+
