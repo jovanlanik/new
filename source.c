@@ -1,5 +1,5 @@
 // New
-// Copyright (c) 2018 Jovan Lanik, Josef Miegl
+// Copyright (c) 2022 Jovan Lanik, Josef Miegl
 
 #include <stdio.h>
 #include <string.h>
@@ -31,7 +31,7 @@ char map[][5] = {
 	"\\\\/",
 	"><",
 	"^/",
-	"/."
+	"/.",
 };
 
 #define LEN(c) strlen(map[toupper(c)-'A'])
@@ -68,9 +68,8 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		else if(input[2] == '\b') {
-			if(isalpha(input[1]))
-				for(int i = 0; i < LEN(input[1]); ++i) putchar('\b');
-			else putchar('\b');
+			if(!isalpha(input[1])) putchar('\b');
+			else for(int i = 0; i < LEN(input[1]); ++i) putchar('\b');
 		}
 		else putchar(input[2]);
 		for(int i = 1; i < 3; ++i) input[i-1] = input[i];
