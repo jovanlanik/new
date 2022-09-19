@@ -18,4 +18,4 @@ all: $(NAME)
 clean:
 	@rm $(TRASH) | true
 $(NAME): $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ) $(LDLIBS) -o $@
+	$(LINK.c) $^ $(LDLIBS) -o $@
